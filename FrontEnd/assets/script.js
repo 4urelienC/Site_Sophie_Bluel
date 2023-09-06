@@ -1,6 +1,7 @@
-// Récupération des pièces depuis le fichier JSON
-requeteWorks(0)//.then(data => {work = data})
+// Envoi la première génération de la page
+requeteWorks(0)
 
+// Récupération des articles avec l'API et lance la génèration
 async function requeteWorks(filterID){
    let result = await fetch("http://localhost:5678/api/works")
    let data = await result.json()
@@ -8,18 +9,17 @@ async function requeteWorks(filterID){
    affichageGallery(data,filterID)
  }
 
-//const reponse = await fetch("http://localhost:5678/api/works");
-//const work = await reponse.json();
 
+// Prepare le filtre et lance la fonction de génèration
 async function affichageGallery(work,filterNbr){
 
 
     const galleryElement = document.querySelector(".gallery");
-    while (galleryElement.firstChild) {
-        galleryElement.removeChild(galleryElement.firstChild);
-    }
 
+    // Efface le contenu de la balise gallery
+    galleryElement.innerHTML = '';
 
+    // applique le filtre et lance la fonction
     let i
     for(i=0; i< work.length; i++)
     {
@@ -35,6 +35,7 @@ async function affichageGallery(work,filterNbr){
     }
 }
 
+// Fonction qui génère la gallery
 async function galleryLoad(article)
 {
   const figureElement = document.createElement("figure");

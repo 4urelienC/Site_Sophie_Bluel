@@ -1,5 +1,7 @@
+// Récupération des boutons radios des filtres
 const radioButtons = document.querySelectorAll("input[type=radio]");
 
+// Event d'écoute des boutons radio filtres
 radioButtons.forEach(radioButton => {
   radioButton.addEventListener('click', radioButtonClickHandler);
 });
@@ -12,21 +14,11 @@ function radioButtonClickHandler(event) {
       requeteWorks(0)
     }else{
       requeteCategories(event)
-      //const listCategory = requeteCategories()
-      // console.log(listCategory);
-      // let index
-      // for(index=0; index< listCategory.length; index++)
-      // {
-      //   if(event.target.id === listCategory.name[index])
-      //   {
-      //     console.log(listCategory.id)
-      //     requeteWorks(listCategory.id)
-      //   }
-      // }
     }
   }
 }
 
+// Récupération des catégories avec l'API et lance la génèration
 async function requeteCategories(event){
    let resultTest = await fetch("http://localhost:5678/api/categories")
    let dataTest = await resultTest.json()
