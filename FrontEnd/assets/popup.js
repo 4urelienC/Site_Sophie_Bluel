@@ -92,21 +92,19 @@ async function sendPostAdd(sendPix,sendTitre,sendCat)
     const url = "http://localhost:5678/api/works";
 
     const dataAdd = {
-        "id": newID,
         "title": sendTitre,
-        "imageUrl": sendPix,
-        "categoryId": finalCat,
+        "image": sendPix,
+        "category": finalCat,
         "userId": idTokenF
     };
 
     // Récupérez le token d'authentification depuis le local storage
     const authToken = token;
-
     fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-
+            
             "Authorization": `Bearer ${authToken}`
         },
         body: JSON.stringify(dataAdd)

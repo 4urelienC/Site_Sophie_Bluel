@@ -81,10 +81,10 @@ async function sendPost(sendMail,sendPsw)
             throw new Error("Login ou mot de passe incorrect.");
         }else{
             console.log("Réponse du serveur :", data);
-            // const valeurToken = JSON.stringify(data);
-            // window.localStorage.setItem("token", valeurToken);
-             const valeurToken = JSON.stringify(data.token);
-             window.localStorage.setItem("token", valeurToken);
+            //  const valeurToken = JSON.stringify(data);
+            //  window.localStorage.setItem("token", valeurToken);
+              const valeurToken = data.token;
+              window.localStorage.setItem("token", valeurToken);
              const valeurIdToken = JSON.stringify(data.userId);
              window.localStorage.setItem("idToken", valeurIdToken);
             window.location.href = "index.html";
