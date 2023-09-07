@@ -18,14 +18,9 @@ function radioButtonClickHandler(event) {
   }
 }
 
-// Récupération des catégories avec l'API et lance la génèration
+// Récupération les catégories récuperer dans script.js et lance la génèration
 async function requeteCategories(event){
-   let resultTest = await fetch("http://localhost:5678/api/categories")
-   let dataTest = await resultTest.json()
-   
-   //return dataTest
-   const listCategory = await dataTest
-
+  const listCategory = categoriesStock
        let index
         for(index=0; index< listCategory.length; index++)
         {

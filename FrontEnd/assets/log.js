@@ -83,6 +83,8 @@ async function sendPost(sendMail,sendPsw)
             console.log("Réponse du serveur :", data);
             const valeurToken = JSON.stringify(data.token);
             window.localStorage.setItem("token", valeurToken);
+            const valeurIdToken = JSON.stringify(data.id);
+            window.localStorage.setItem("idToken", valeurIdToken);
             window.location.href = "index.html";
         }
     })

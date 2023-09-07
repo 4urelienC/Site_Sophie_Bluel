@@ -1,3 +1,48 @@
+// Récupération des catégories avec l'API
+let categoriesStock;
+
+async function fetchCategories() {
+    try {
+        const resultCate = await fetch("http://localhost:5678/api/categories");
+        const dataCate = await resultCate.json();
+        return dataCate;
+    } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+        return null;
+    }
+}
+
+async function initCategories() {
+    categoriesStock = await fetchCategories();
+    if (categoriesStock !== null) {
+        // Les catégories ont été chargées avec succès, vous pouvez effectuer des opérations avec categoriesStock ici.
+        
+        
+            //Prépare la création de la liste des categorie de la Popup
+        const formPopup = document.getElementById("categorie-select");
+        //formPopup.innerHTML = "";
+        let ix
+        for(ix=0; ix< categoriesStock.length; ix++)
+          {
+            const optionFormPopup = document.createElement("option");
+            optionFormPopup.value = categoriesStock[ix].name;
+            optionFormPopup.innerText = categoriesStock[ix].name;
+            formPopup.appendChild(optionFormPopup);
+          }
+        
+
+    } else {
+        // Une erreur s'est produite lors de la récupération des catégories.
+        // Vous pouvez gérer l'erreur ici, par exemple, afficher un message à l'utilisateur.
+    }
+}
+
+// Appelez la fonction init pour commencer le chargement des catégories.
+initCategories();
+
+
+
+
 // Envoi la première génération de la page
 requeteWorks(0)
 
