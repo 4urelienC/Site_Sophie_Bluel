@@ -76,38 +76,47 @@ function afficherErreur(message)
 
 async function sendPostAdd(sendPix,sendTitre,sendCat)
 {
-    const url = "http://localhost:5678/api/users/login";  // Remplacez l'URL par l'URL réelle de l'API
-    const data = {
-        "category": sendCat.XXX,
-        "categoryId": sendCat.XXX,
-        "Id": XXX,
-        "imageUrl": sendPix,
+    let newID = articlesStock.length + 1;
+    let finalCat;
+    
+    let ic;
+         for(ic=0; ic< categoriesStock.length; ic++)
+         {
+           if (sendCat === categoriesStock[ic].name) {
+            finalCat = categoriesStock[ic].id;
+           }
+         }
+         const idTokenF = window.localStorage.getItem("idToken");
+         const token = window.localStorage.getItem("token");
+
+    const url = "http://localhost:5678/api/works";
+
+    const dataAdd = {
+        "id": newID,
         "title": sendTitre,
-        "userId": window.localStorage.getItem("token")
+        "imageUrl": sendPix,
+        "categoryId": finalCat,
+        "userId": idTokenF
     };
 
-
-
-
-
-
+    // Récupérez le token d'authentification depuis le local storage
+    const authToken = token;
 
     fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+
+            "Authorization": `Bearer ${authToken}`
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(dataAdd)
     })
     .then(response => response.json())
     .then(data => {
         if(!data.userId)
         {
-            throw new Error("Login ou mot de passe incorrect.");
+            throw new Error("Echec de l'envoi.");
         }else{
-            console.log("Réponse du serveur :", data);
-            const valeurToken = JSON.stringify(data.token);
-            window.localStorage.setItem("token", valeurToken);
             window.location.href = "index.html";
         }
     })

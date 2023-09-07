@@ -11,7 +11,7 @@ function radioButtonClickHandler(event) {
     console.log(`L'option sélectionnée est : ${event.target.id}`);
     if(event.target.id === "Tous")
     {
-      requeteWorks(0)
+      affichageGallery(articlesStock)
     }else{
       requeteCategories(event)
     }
@@ -21,11 +21,20 @@ function radioButtonClickHandler(event) {
 // Récupération les catégories récuperer dans script.js et lance la génèration
 async function requeteCategories(event){
   const listCategory = categoriesStock
-       let index
-        for(index=0; index< listCategory.length; index++)
-        {
-          if (event.target.id === listCategory[index].name) {
-            requeteWorks(listCategory[index].id);
-          }
-        }
+
+  let index
+         for(index=0; index< listCategory.length; index++)
+         {
+           if (event.target.id === listCategory[index].name) {
+            const articlesFiltres = articlesStock.filter(function (article) {
+              return article.categoryId === listCategory[index].id;
+              });
+              affichageGallery(articlesFiltres)
+           }
+         }
+
+
+  
+
+        
 }

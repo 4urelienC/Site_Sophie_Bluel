@@ -1,5 +1,9 @@
+//////////////////////////////////////////////CATEGORIES////////////////////////////////////
+
 // Récupération des catégories avec l'API
 let categoriesStock;
+// Appelez la fonction init pour commencer le chargement des catégories.
+initCategories();
 
 async function fetchCategories() {
     try {
@@ -37,46 +41,43 @@ async function initCategories() {
     }
 }
 
-// Appelez la fonction init pour commencer le chargement des catégories.
-initCategories();
+//////////////////////////////////////////////ARTICLES////////////////////////////////////
 
 
-
-
-// Envoi la première génération de la page
-requeteWorks(0)
-
+// Récupération des catégories avec l'API
+let articlesStock;
+// Appelez la fonction init pour commencer le chargement des articles.
+initArticles()
 // Récupération des articles avec l'API et lance la génèration
-async function requeteWorks(filterID){
-   let result = await fetch("http://localhost:5678/api/works")
-   let data = await result.json()
-   //return data
-   affichageGallery(data,filterID)
- }
+async function fetchArticles() {
+  try {
+    let result = await fetch("http://localhost:5678/api/works")
+    let data = await result.json()
+      return data;
+  } catch (error) {
+      console.error("Erreur lors de la récupération des articles:", error);
+      return null;
+  }
+}
 
+async function initArticles() {
+  articlesStock = await fetchArticles();
+  if (articlesStock !== null) {
+    affichageGallery(articlesStock)
+  }
+}
 
 // Prepare le filtre et lance la fonction de génèration
-async function affichageGallery(work,filterNbr){
-
-
+async function affichageGallery(work){
     const galleryElement = document.querySelector(".gallery");
 
     // Efface le contenu de la balise gallery
     galleryElement.innerHTML = '';
-
-    // applique le filtre et lance la fonction
+    // Lance la génération des articles
     let i
     for(i=0; i< work.length; i++)
     {
-        const articleNbr = work[i];
-        if(filterNbr === 0)
-        {
-          galleryLoad(articleNbr)
-        }
-        if(filterNbr === articleNbr.categoryId)
-        {
-          galleryLoad(articleNbr)
-        }
+          galleryLoad(work[i])
     }
 }
 
@@ -98,9 +99,5 @@ async function galleryLoad(article)
             const selectionFiches = document.querySelector(".gallery");
             selectionFiches.appendChild(figureElement);
 }
-
-
-
-
 
 
