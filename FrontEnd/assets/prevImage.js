@@ -5,6 +5,8 @@ function setupImagePreview() {
     input.addEventListener('change', function () {
         const file = input.files[0];
 
+    picture = document.getElementById("pix").value;
+
         if (file) {
             // Effacer le contenu actuel de la div "upload"
             uploadDiv.innerHTML = '';

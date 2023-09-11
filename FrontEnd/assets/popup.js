@@ -2,7 +2,7 @@ let baliseFormAdd = document.getElementById("formAdd");
 baliseFormAdd.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const picture = document.getElementById("pix").value;
+    let picture;
     const titre = document.getElementById("titre").value;
     const categorie = document.getElementById("categorie-select").value;
 
