@@ -16,6 +16,7 @@
 	<script src="assets/admin.js" defer></script>
 	<script src="assets/filters.js" defer></script>
 	<script src="assets/popup.js" defer></script>
+	<script src="assets/prevImage.js" defer></script>
 </head>
 <body>
 	<div class ="zoneEdit">
@@ -93,20 +94,25 @@
 	<div class = "popup">
 		<div class = "popIn">
 			<div class = "popTop">
-				<i class="fa-solid fa-arrow-left fa-lg" class = "close"></i>
+				<i class="fa-solid fa-arrow-left fa-lg" id = "effacerImage" class = "close"></i>
 				<i class="fa-solid fa-xmark fa-lg" id = "close" class = "close"></i>
 			</div>
 			<h3>Ajout photo</h3>
 			<div class = "popBot">
 				<form method="post" id = "formAdd">
-					<input type="file" id="pix" name="pix" accept="image/png, image/jpeg" class="popInput"/>
+					<div class="upload">
+							<i class="fa-regular fa-image fa-4x"></i>
+							<label for="pix" class="browse button black">+ Ajouter photo</label>
+							<input type="file" id="pix" name="pix" accept="image/png, image/jpeg" class="browse" multiple />
+							<p class="imgComm">jpg, png : 4mo max</p>
+					</div>
 					<label for="titre">Titre</label>
 					<input type="text" name="titre" id="titre" class="popInput"/>
 					<label for="categorie">Catégorie</label>
 					<select name="categorie" id="categorie-select" class="popInput">
 						<option value=""></option>
 					</select>
-					<input type="submit" value="Valider">
+						<input type="submit" value="Valider" class="popSubmit">
 				</form>
 			</div>
 		</div>

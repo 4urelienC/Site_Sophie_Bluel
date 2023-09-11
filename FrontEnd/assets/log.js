@@ -85,7 +85,7 @@ async function sendPost(sendMail,sendPsw)
             //  window.localStorage.setItem("token", valeurToken);
               const valeurToken = data.token;
               window.localStorage.setItem("token", valeurToken);
-             const valeurIdToken = JSON.stringify(data.userId);
+             const valeurIdToken = data.userId;
              window.localStorage.setItem("idToken", valeurIdToken);
             window.location.href = "index.html";
         }
