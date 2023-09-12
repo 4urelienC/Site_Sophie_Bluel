@@ -1,11 +1,12 @@
+let picture;
+
 let baliseFormAdd = document.getElementById("formAdd");
 baliseFormAdd.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let picture;
+    
     const titre = document.getElementById("titre").value;
     const categorie = document.getElementById("categorie-select").value;
-
     if (validePix(picture) && valideTitle(titre) && valideCat(categorie)) {
         sendPostAdd(picture,titre,categorie)
     }
@@ -92,14 +93,20 @@ async function sendPostAdd(sendPix,sendTitre,sendCat)
     const url = "http://localhost:5678/api/works";
 
     const dataAdd = {
-        "title": sendTitre,
         "image": sendPix,
+        "title": sendTitre,
         "category": finalCat,
-        "userId": idTokenF
+        // "userId": idTokenF
     };
 
     // Récupérez le token d'authentification depuis le local storage
     const authToken = token;
+
+// console.log("image: " + sendPix + 
+// " | title: " + sendTitre + 
+// " | category: " + finalCat + 
+// " | authToken " + authToken)
+
     fetch(url, {
         method: "POST",
         headers: {
@@ -113,6 +120,7 @@ async function sendPostAdd(sendPix,sendTitre,sendCat)
     .then(data => {
         if(!data.userId)
         {
+            console.log(data.userId);
             throw new Error("Echec de l'envoi.");
         }else{
             window.location.href = "index.html";
