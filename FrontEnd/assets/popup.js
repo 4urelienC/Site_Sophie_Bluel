@@ -93,41 +93,39 @@ async function sendPostAdd(sendPix,sendTitre,sendCat)
     const url = "http://localhost:5678/api/works";
 
     const dataAdd = {
-        "image": sendPix,
+        "image": "http://localhost:5678/images/5bf3ea6ba727a1694542996910.jpg",
         "title": sendTitre,
         "category": finalCat,
-        // "userId": idTokenF
     };
 
     // Récupérez le token d'authentification depuis le local storage
     const authToken = token;
 
-// console.log("image: " + sendPix + 
-// " | title: " + sendTitre + 
-// " | category: " + finalCat + 
-// " | authToken " + authToken)
+ console.log("TEST FINAL : image: " + sendPix + 
+ " | title: " + sendTitre + 
+ " | category: " + finalCat + 
+ " | authToken " + authToken);
 
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            
-            "Authorization": `Bearer ${authToken}`
-        },
-        body: JSON.stringify(dataAdd)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(!data.userId)
-        {
-            console.log(data.userId);
-            throw new Error("Echec de l'envoi.");
-        }else{
-            window.location.href = "index.html";
-        }
-    })
-    .catch(error =>{
-        console.error("Erreur lors de la requête :", error);
-        alert(error);
-    });
+ var myHeaders = new Headers();
+ myHeaders.append("accept", "application/json");
+ myHeaders.append("Content-Type", "multipart/form-data");
+myHeaders.append('Authorization', `Bearer ${authToken}`);
+
+var formdata = new FormData();
+formdata.append("image", sendPix);
+formdata.append("title", sendTitre);
+formdata.append("category", finalCat);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: JSON.stringify(formdata),
+  redirect: 'follow'
+};
+
+fetch("http://localhost:5678/api/works", requestOptions)
+  .then(response => response.json())
+  .then(data => {/*window.location.href="index.html"*/})
+  //.then(data => {windows.location.href="index.html"})
+  .catch(error => console.log('error', error));
 }

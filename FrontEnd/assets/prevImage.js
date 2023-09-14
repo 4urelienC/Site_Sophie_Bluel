@@ -5,7 +5,7 @@ function setupImagePreview() {
     input.addEventListener('change', function () {
         const file = input.files[0];
 
-    picture = document.getElementById("pix").value;
+        picture = file;
 
         if (file) {
             // Effacer le contenu actuel de la div "upload"
@@ -23,6 +23,7 @@ function setupImagePreview() {
             const reader = new FileReader();
             reader.onload = function (e) {
                 imagePreview.src = e.target.result;
+                console.log(picture);
             };
             reader.readAsDataURL(file);
         } else {
