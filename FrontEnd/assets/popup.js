@@ -101,31 +101,27 @@ async function sendPostAdd(sendPix,sendTitre,sendCat)
     // Récupérez le token d'authentification depuis le local storage
     const authToken = token;
 
- console.log("TEST FINAL : image: " + sendPix + 
- " | title: " + sendTitre + 
- " | category: " + finalCat + 
- " | authToken " + authToken);
+console.log("TEST FINAL :  image " + sendPix + " " + sendPix.name + " title " + sendTitre + " category " + finalCat)
 
  var myHeaders = new Headers();
- myHeaders.append("accept", "application/json");
- myHeaders.append("Content-Type", "multipart/form-data");
-myHeaders.append('Authorization', `Bearer ${authToken}`);
-
-var formdata = new FormData();
-formdata.append("image", sendPix);
-formdata.append("title", sendTitre);
-formdata.append("category", finalCat);
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: JSON.stringify(formdata),
-  redirect: 'follow'
-};
-
-fetch("http://localhost:5678/api/works", requestOptions)
-  .then(response => response.json())
-  .then(data => {/*window.location.href="index.html"*/})
-  //.then(data => {windows.location.href="index.html"})
-  .catch(error => console.log('error', error));
+ myHeaders.append("accept", "application/json",);
+ //myHeaders.append("Content-Type", " application/json");
+ myHeaders.append("Authorization", "Bearer " + authToken);
+ 
+ var formdata = new FormData();
+    formdata.append("image", sendPix, sendPix.name);
+    formdata.append("title", sendTitre);
+    formdata.append("category", finalCat);
+ 
+ var requestOptions = {
+   method: 'POST',
+   headers: myHeaders,
+   body: formdata,
+   //redirect: 'follow'
+ };
+ 
+ fetch("http://localhost:5678/api/works", requestOptions)
+  .then(response => response.json()) // Attend une réponse JSON
+  .then(data => console.log(data)) // Afficher la réponse JSON
+  .catch(error => console.log('Erreur :', error));
 }

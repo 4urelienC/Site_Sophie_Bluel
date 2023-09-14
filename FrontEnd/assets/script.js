@@ -46,13 +46,14 @@ async function initCategories() {
 
 // Récupération des catégories avec l'API
 let articlesStock;
+let data;
 // Appelez la fonction init pour commencer le chargement des articles.
 initArticles()
 // Récupération des articles avec l'API et lance la génèration
 async function fetchArticles() {
   try {
     let result = await fetch("http://localhost:5678/api/works")
-    let data = await result.json()
+    data = await result.json()
       return data;
   } catch (error) {
       console.error("Erreur lors de la récupération des articles:", error);
