@@ -13,16 +13,18 @@ baliseFormAdd.addEventListener("submit", (event) => {
 });
 
 function validePix(picture) {
-    try{
-        if (picture === "")
-            {
-                throw new Error(`L'image est vide.`)
-                return false;
-            }
+    try {
+        if (!picture || !picture.size) {
+            throw new Error(`L'image est vide.`);
+            return false;
+        } else if (picture.size > 4000000) {
+            throw new Error("Image trop lourde. La taille maximale autorisée est de 4 Mo.");
+            return false;
+        }
         return true;
-    }catch(erreur)
-    {
-        afficherErreur(erreur.message)
+    } catch (erreur) {
+        afficherErreur(erreur.message);
+        return false; // Vous devriez retourner false ici pour indiquer que la validation a échoué.
     }
 }
 
@@ -63,11 +65,13 @@ function afficherErreur(message)
 {
     let spanErreurMessage = document.getElementById("erreurMessage")
     if(!spanErreurMessage){
-        let form = document.getElementById("formAdd")
+        //let form = document.getElementById("formAdd")
+        let form = document.getElementById("formError")
     spanErreurMessage = document.createElement("span")
     spanErreurMessage.id = "erreurMessage"
     spanErreurMessage.innerText = message
     spanErreurMessage.classList.add("errorMail");
+    //form.append(spanErreurMessage)
     form.append(spanErreurMessage)
     }
     spanErreurMessage.innerText = message
