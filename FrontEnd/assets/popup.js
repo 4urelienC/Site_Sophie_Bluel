@@ -18,7 +18,7 @@ function validePix(picture) {
             throw new Error(`L'image est vide.`);
             return false;
         } else if (picture.size > 4000000) {
-            throw new Error("Image trop lourde. La taille maximale autorisée est de 4 Mo.");
+            throw new Error("L'image est trop lourde.");
             return false;
         }
         return true;
